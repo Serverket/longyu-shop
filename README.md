@@ -3,7 +3,7 @@
 </div>
 
 ## :gear: Install & Run
-You'll need at least `node 16` and `bun` to compile everything up:
+You'll need at least `node 18` and `bun` to compile everything up:
 
 ```
 bun install
@@ -14,9 +14,14 @@ bun run dev
 ## :star2: Main features
 
 **Frontend / UI:**
-* React 
+* Vite
+* React
+* React Router
 * Tailwind CSS
 * Fontello
+
+## :shipit: Special Thanks
+* To Rafa, aka <a rel="noopener noreferrer" href="https://github.com/DarkWool">DarkWool</a>, for his work of art.
 
 **Animations:**
 * AOS

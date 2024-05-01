@@ -1,16 +1,52 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
-  ],
+export default {
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       fontFamily: {
-        pp: ['Press Start 2P'],
-        tektur: ['"Tektur"'],
         mont: ['"Montserrat"'],
       },
+      colors: {
+        "shiny-yellow": "#FFF500",
+      },
+      backgroundImage: ({ theme }) => ({
+        "stars-gradient": `linear-gradient(90deg, ${theme(
+          "colors.amber.400"
+        )} var(--percent), ${theme("colors.gray.200")} var(--percent));`,
+      }),
+      animation: {
+        "opacity-pulse": "opacity-pulse .8s ease-in-out infinite alternate-reverse",
+        marquee: "marquee 10s linear infinite backwards",
+      },
+      keyframes: {
+        "opacity-pulse": {
+          "0%": { opacity: 0 },
+          "100%": { opacity: 1 },
+        },
+        marquee: {
+          "0%": { transform: "translateX(0%)" },
+          "100%": { transform: "translateX(-100%)" },
+        },
+      },
+    },
+    container: {
+      center: true,
+      padding: "1rem",
+    },
+    fontFamily: {
+      sans: [
+        "Inter",
+        "ui-sans-serif",
+        "system-ui",
+        "-apple-system",
+        "BlinkMacSystemFont",
+        "Segoe UI",
+        "Roboto",
+        "Helvetica Neue",
+        "Arial",
+      ],
+      headings: "Montserrat",
     },
   },
   plugins: [],
-}
+};
