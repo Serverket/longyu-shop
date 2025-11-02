@@ -6,7 +6,7 @@ const ModernCTA = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
   
   const stats = [
-    { value: '10K+', label: 'Clientes Felices', icon: Users },
+    { value: '200+', label: 'Clientes Felices', icon: Users },
     { value: '24h', label: 'Envío Rápido', icon: Clock },
     { value: '500+', label: 'Productos', icon: ShoppingBag },
     { value: '4.9★', label: 'Calificación', icon: TrendingUp },
