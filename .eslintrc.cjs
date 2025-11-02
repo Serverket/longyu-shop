@@ -4,14 +4,13 @@ module.exports = {
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
-    "plugin:react-hooks/recommended",
-    "prettier",
+    "plugin:react-hooks/recommended"
   ],
   parserOptions: { ecmaVersion: "latest", sourceType: "module" },
   settings: { react: { version: "18.2" } },
-  plugins: ["react-refresh"],
   rules: {
-    "react-refresh/only-export-components": "warn",
     "react/prop-types": "off",
+    "no-unused-vars": ["warn", { "varsIgnorePattern": "^React$" }],
+    "react/no-unescaped-entities": "off"
   },
 };

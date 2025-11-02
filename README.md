@@ -1,15 +1,33 @@
-# Longyu Shop Landing Page &middot; ![Release Status](https://img.shields.io/badge/release-v1.0.0-brightgreen) [![npm version](https://img.shields.io/npm/v/react.svg?style=flat)](https://www.npmjs.com/package/react) [![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](LICENSE)
-**An Universally Acclaimed Asian Candy Store**
+# Longyu Shop# 🍜 Longyu Shop - Tu Tienda Asiática Favorita
+
+<div align="center">
+  
+  ![](https://img.shields.io/badge/React-18.2-61DAFB?style=for-the-badge&logo=react)
+  ![](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css)
+  ![](https://img.shields.io/badge/Framer_Motion-10.16-FF0055?style=for-the-badge&logo=framer)
+  
+  **🎉 Tienda online moderna de productos asiáticos auténticos 🎉**
+  
+  [🌐 Live Demo](https://longyu.shop) • [📸 Instagram](https://instagram.com/longyu.shop) • [💬 WhatsApp](https://wa.me/584141471037)
+  
 </div>
 
-## :gear: Install & Run
-You'll need at least `node 18` and `bun` to compile everything up:
+## ✨ Características
 
-```
-bun install
+### 🎨 Diseño Ultra Moderno
+- **Glassmorphism** con efectos de blur y transparencias
+- **Gradientes animados** vibrantes y llamativos
+- **Micro-interacciones** en cada elemento
+- **Navegación flotante** inteligente
+- **Animaciones suaves** con Framer Motion
 
-bun run dev
-```
+### 🚀 Componentes Destacados
+- `FloatingNav` - Navegación moderna y adaptativa
+- `Hero` - Sección principal con texto animado gigante
+- `ProductCard` - Cards interactivas con hover effects
+- `ClientesSection` - Testimoniales con carrusel moderno
+- `ModernCTA` - Llamados a la acción irresistibles
+- `BackgroundSlider` - Slider de imágenes con partículas
 
 ## :star2: Main features
 
