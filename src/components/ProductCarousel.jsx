@@ -2,6 +2,7 @@ import React, { useMemo, useState, useRef, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 import starsPattern from '../assets/images/stars.png';
+import WhatsAppCartBar from './WhatsAppCartBar';
 
 const useProductCategories = () =>
   useMemo(
@@ -50,6 +51,31 @@ const ProductCarousel = () => {
   const isProgrammaticScroll = useRef(false);
 
   const activeCategory = categories[activeIndex];
+  const [selected, setSelected] = useState([]); // {id, item, category, qty}
+
+  const toggleSelect = (item) => {
+    setSelected(prev => {
+      const id = `${activeCategory.id}-${item}`;
+      const existing = prev.find(p => p.id === id);
+      if (existing) {
+        // Remove if already selected
+        return prev.filter(p => p.id !== id);
+      }
+      return [...prev, { id, item, category: activeCategory.title, qty: 1 }];
+    });
+  };
+
+  const MAX_QTY = 10;
+  const updateQty = (id, delta) => {
+    setSelected(prev => prev.map(p => {
+      if (p.id !== id) return p;
+      const nextQty = Math.min(MAX_QTY, Math.max(1, p.qty + delta));
+      return { ...p, qty: nextQty };
+    }));
+  };
+
+  const removeItem = (id) => setSelected(prev => prev.filter(p => p.id !== id));
+  const clearAll = () => setSelected([]);
 
   const measureLayout = useCallback(() => {
     const container = sliderRef.current;
@@ -245,11 +271,20 @@ const ProductCarousel = () => {
                 className="relative z-10 flex gap-4 overflow-x-auto pb-4 pr-6 snap-x snap-mandatory"
                 style={{ scrollbarWidth: 'none' }}
               >
-                {activeCategory.items.map((item, index) => (
-                  <motion.article
-                    key={`${activeCategory.id}-${item}`}
+                {activeCategory.items.map((item, index) => {
+                  const id = `${activeCategory.id}-${item}`;
+                  const selectedObj = selected.find(p => p.id === id);
+                  const isSelected = !!selectedObj;
+                  return (
+                    <motion.article
+                    key={id}
                     data-product-card="true"
-                    className="relative flex min-w-[220px] sm:min-w-[260px] flex-col justify-between overflow-hidden rounded-[26px] border border-white/10 bg-white/5 p-5 text-white snap-start"
+                    onClick={() => toggleSelect(item)}
+                    className={`relative flex min-w-[220px] sm:min-w-[260px] flex-col justify-between overflow-hidden rounded-[26px] border p-5 text-white snap-start cursor-pointer transition ${
+                      isSelected
+                        ? 'border-pink-500/60 bg-gradient-to-br from-pink-500/30 via-purple-600/30 to-yellow-400/20'
+                        : 'border-white/10 bg-white/5'
+                    }`}
                     whileHover={{ y: -6 }}
                     transition={{ type: 'spring', stiffness: 260, damping: 22 }}
                   >
@@ -274,9 +309,42 @@ const ProductCarousel = () => {
                         {activeCategory.title}
                       </span>
                       <h4 className="text-xl font-black drop-shadow-sm">{item}</h4>
+                      <div className="flex items-center gap-2">
+                        <span className={`text-[10px] tracking-wide uppercase ${isSelected ? 'text-pink-300' : 'text-white/40'}`}>
+                          {isSelected ? 'Seleccionado' : 'Tap para agregar'}
+                        </span>
+                        {isSelected && (
+                          <motion.span
+                            layoutId={`check-${id}`}
+                            className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-pink-500/60 text-[10px] font-bold"
+                          >
+                            ✓
+                          </motion.span>
+                        )}
+                      </div>
+                      {isSelected && (
+                        <div className="mt-2 flex items-center gap-2">
+                          <button
+                            type="button"
+                            onClick={(e) => { e.stopPropagation(); updateQty(id, -1); }}
+                            className="h-6 w-6 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-xs"
+                          >
+                            -
+                          </button>
+                          <span className="text-xs font-semibold">{selectedObj.qty}</span>
+                          <button
+                            type="button"
+                            onClick={(e) => { e.stopPropagation(); updateQty(id, 1); }}
+                            className="h-6 w-6 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-xs"
+                          >
+                            +
+                          </button>
+                        </div>
+                      )}
                     </div>
-                  </motion.article>
-                ))}
+                    </motion.article>
+                  );
+                })}
               </div>
 
               <div className="mt-6 flex flex-col items-center justify-between gap-4 text-white/60 sm:flex-row">
@@ -299,6 +367,7 @@ const ProductCarousel = () => {
         </AnimatePresence>
 
       </div>
+  <WhatsAppCartBar items={selected} onRemove={removeItem} onClear={clearAll} />
     </section>
   );
 };
