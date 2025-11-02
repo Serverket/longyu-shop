@@ -1,4 +1,4 @@
-# Longyu Shop# 🍜 Longyu Shop - Tu Tienda Asiática Favorita
+# 🍜 Longyu Shop - Tu Tienda Asiática Favorita
 
 <div align="center">
   
@@ -8,7 +8,7 @@
   
   **🎉 Tienda online moderna de productos asiáticos auténticos 🎉**
   
-  [🌐 Live Demo](https://longyu.shop) • [📸 Instagram](https://instagram.com/longyu.shop) • [💬 WhatsApp](https://wa.me/584141471037)
+  [🌐 Live Demo](https://longyu-shop.vercel.app) • [📸 Instagram](https://instagram.com/longyu.shop) • [💬 WhatsApp](https://wa.me/584141471037)
   
 </div>
 

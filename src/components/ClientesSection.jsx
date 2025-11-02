@@ -478,13 +478,15 @@ const ClientesSection = () => {
                       transition={{ delay: 0.25 }}
                     >
                       <div className="flex gap-3 items-center">
-                        <div className="flex justify-center items-center w-10 h-10 rounded-full backdrop-blur-md bg-white/20 md:w-12 md:h-12">
-                          <Quote className="w-5 h-5 text-white md:w-6 md:h-6" />
+                        <div className="flex justify-center items-center w-10 h-10 rounded-full backdrop-blur-md bg-white/15 md:w-12 md:h-12">
+                          <Star className="w-5 h-5 text-white/80 md:w-6 md:h-6" />
                         </div>
+                        {/** Hidden for privacy:
                         <div>
                           <h3 className="text-base font-bold text-white md:text-lg">{activeTestimonial.name}</h3>
                           <p className="text-xs text-white/80 md:text-sm">{activeTestimonial.location}</p>
                         </div>
+                        */}
                       </div>
                     </motion.div>
                   )}
@@ -518,7 +520,7 @@ const ClientesSection = () => {
                     transition={{ delay: 0.4 }}
                     className="relative"
                   >
-                    <Quote className="absolute -top-2 -left-2 w-6 h-6 text-purple-500/20 md:w-8 md:h-8 md:-top-4 md:-left-4" />
+                    <Star className="absolute -top-2 -left-2 w-6 h-6 text-yellow-400/20 md:w-8 md:h-8 md:-top-4 md:-left-4" />
                     <p className="pl-6 text-base font-light leading-relaxed text-white md:text-xl lg:text-2xl md:pl-8">
                       "{activeTestimonial.comment}"
                     </p>
