@@ -40,16 +40,16 @@ const Hero = () => {
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.3, duration: 0.5 }}
-        className="text-center mb-6"
+        className="mb-6 text-center"
       >
-        <div className="relative inline-block">
+        <div className="inline-block relative">
           {/* Efecto glow detrás */}
-          <div className="absolute inset-0 text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-600 opacity-50 blur-2xl" aria-hidden="true">
+          <div className="absolute inset-0 text-4xl font-black bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-600 opacity-50 blur-2xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl" aria-hidden="true">
             Tu tienda asiática favorita
           </div>
           {/* Texto principal */}
           <motion.h1 
-            className="relative text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black mb-4 bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-600 bg-clip-text text-transparent animate-gradient-x tracking-tight uppercase"
+            className="relative mb-4 text-4xl font-black tracking-tight text-transparent uppercase bg-clip-text bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-600 sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl animate-gradient-x"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             whileHover={{ scale: 1.05 }}
@@ -68,7 +68,7 @@ const Hero = () => {
             repeat: Infinity,
             ease: "easeInOut" 
           }}
-          className="inline-block text-5xl md:text-6xl lg:text-7xl filter drop-shadow-2xl animate-float"
+          className="inline-block text-5xl filter drop-shadow-2xl md:text-6xl lg:text-7xl animate-float"
         >
           🍜
         </motion.div>
@@ -83,7 +83,7 @@ const Hero = () => {
       >
         <ShoppingBag className="w-5 h-5 text-white" />
         <p className="text-sm text-white/90 md:text-base">
-          Productos auténticos de Asia directo a tu puerta
+          Productos de Asia directo a tu puerta
         </p>
       </motion.div>
 
@@ -97,9 +97,9 @@ const Hero = () => {
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          className="flex flex-col items-center gap-2"
+          className="flex flex-col gap-2 items-center"
         >
-          <motion.div className="flex justify-center w-6 h-10 rounded-full border-2 border-white/30 hover:border-white/60 transition-colors cursor-pointer">
+          <motion.div className="flex justify-center w-6 h-10 rounded-full border-2 transition-colors cursor-pointer border-white/30 hover:border-white/60">
             <motion.div
               animate={{ y: [2, 15, 2] }}
               transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
@@ -109,7 +109,7 @@ const Hero = () => {
           <motion.span
             animate={{ opacity: [0.4, 1, 0.4] }}
             transition={{ duration: 2, repeat: Infinity }}
-            className="text-white/60 text-xs font-medium"
+            className="text-xs font-medium text-white/60"
           >
             Desliza
           </motion.span>

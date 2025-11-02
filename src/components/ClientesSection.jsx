@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Star, Quote, ChevronLeft, ChevronRight, Heart } from 'lucide-react';
+import { Star, ChevronLeft, ChevronRight, Heart } from 'lucide-react';
 import client7Image from '../assets/images/7.jpg';
 import client8Image from '../assets/images/8.jpg';
 import client9Image from '../assets/images/9.jpg';
@@ -47,8 +47,8 @@ const testimonialVariants = {
 };
 
 const ClientesSection = () => {
-  // Data first, then state hooks that depend on it to avoid TDZ issues
-  const testimonials = [
+  // Memoize data so hooks depending on it keep stable references
+  const testimonials = useMemo(() => [
     {
       id: 1,
       name: "Alejandra Ríos",
@@ -309,7 +309,7 @@ const ClientesSection = () => {
       favorite: "Kit Degustación",
       date: "Hace 10 meses"
     }
-  ];
+  ], []);
 
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [direction, setDirection] = useState(1);
@@ -348,7 +348,7 @@ const ClientesSection = () => {
         });
       };
     });
-  }, []); // preload once
+  }, [testimonials]); // preload once
 
   return (
   <section className="overflow-hidden relative px-4 py-14 md:py-16 lg:py-20" id="clientes">

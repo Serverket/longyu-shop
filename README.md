@@ -2,11 +2,11 @@
 
 <div align="center">
   
-  ![](https://img.shields.io/badge/React-18.2-61DAFB?style=for-the-badge&logo=react)
+  ![](https://img.shields.io/badge/Longyu_Shop-2.5.0-f97316?style=for-the-badge&logo=vercel)
   ![](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css)
   ![](https://img.shields.io/badge/Framer_Motion-10.16-FF0055?style=for-the-badge&logo=framer)
   
-  **🎉 Tienda online moderna de productos asiáticos auténticos 🎉**
+  **🎉 Tienda online moderna de productos asiáticos**
   
   [🌐 Live Demo](https://longyu-shop.vercel.app) • [📸 Instagram](https://instagram.com/longyu.shop) • [💬 WhatsApp](https://wa.me/584141471037)
   

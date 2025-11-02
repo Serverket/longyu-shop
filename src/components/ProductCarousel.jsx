@@ -271,7 +271,7 @@ const ProductCarousel = () => {
                 className="relative z-10 flex gap-4 overflow-x-auto pb-4 pr-6 snap-x snap-mandatory"
                 style={{ scrollbarWidth: 'none' }}
               >
-                {activeCategory.items.map((item, index) => {
+                {activeCategory.items.map((item) => {
                   const id = `${activeCategory.id}-${item}`;
                   const selectedObj = selected.find(p => p.id === id);
                   const isSelected = !!selectedObj;

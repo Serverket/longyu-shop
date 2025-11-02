@@ -55,7 +55,13 @@ const WhatsAppCartBar = ({ items, onRemove, onClear }) => {
 
   // Persist preference
   useEffect(() => {
-    try { localStorage.setItem('lu-include-location', includeLocation ? 'true' : 'false'); } catch {}
+    try {
+      localStorage.setItem('lu-include-location', includeLocation ? 'true' : 'false');
+    } catch (error) {
+      if (process.env.NODE_ENV !== 'production') {
+        console.warn('Failed to persist location preference', error);
+      }
+    }
   }, [includeLocation]);
 
   const totalUnits = items.reduce((sum, p) => sum + (p.qty || 1), 0);
@@ -64,19 +70,74 @@ const WhatsAppCartBar = ({ items, onRemove, onClear }) => {
       return new Date(ts).toLocaleString('es-VE');
     } catch { return ''; }
   };
-  const buildMessage = () => {
-    const header = `Hola! Quiero ordenar (${totalUnits} uds / ${items.length} productos):`;
-    const list = items.map(p => `- ${p.item} x${p.qty} (${p.category})`).join('\n');
-    const parts = [header, list];
-    if (includeLocation && locationData) {
-      parts.push(
-        `Ubicación aprox: https://maps.google.com/?q=${locationData.lat},${locationData.lng}\nLat: ${locationData.lat}\nLng: ${locationData.lng}\nPrecisión: ±${locationData.accuracy}m\nCapturada: ${formatTimestamp(locationData.timestamp)}`
-      );
-    } else if (includeLocation && locStatus === 'error') {
-      parts.push('No se pudo obtener mi ubicación - continuaré sin ella.');
+  const formatAccuracy = (meters) => {
+    if (typeof meters !== 'number' || Number.isNaN(meters)) return '';
+    if (meters >= 1000) {
+      const km = meters / 1000;
+      return `±${km >= 10 ? Math.round(km) : km.toFixed(1)} km`;
     }
-    parts.push('Enviado desde Longyu Shop');
-    return parts.filter(Boolean).join('\n');
+    return `±${meters} m`;
+  };
+  const locationAccuracyDisplay = includeLocation && locStatus === 'success' && locationData
+    ? formatAccuracy(locationData.accuracy)
+    : '';
+  const buildMessage = () => {
+    const groupedProducts = items.reduce((acc, item) => {
+      const category = item.category || 'Otros';
+      if (!acc.has(category)) {
+        acc.set(category, []);
+      }
+      acc.get(category).push(item);
+      return acc;
+    }, new Map());
+
+    const productLines = [];
+    groupedProducts.forEach((products, category) => {
+      productLines.push(`- ${category}`);
+      products.forEach((product) => {
+        const qty = product.qty || 1;
+        productLines.push(`    • ${product.item} ×${qty}`);
+      });
+    });
+
+    const locationLines = [];
+    if (includeLocation && locationData) {
+      const accuracyText = formatAccuracy(locationData.accuracy);
+      const mapLink = `https://www.google.com/maps/search/?api=1&query=${locationData.lat},${locationData.lng}`;
+      locationLines.push('Ubicación aproximada:');
+      if (accuracyText) {
+        locationLines.push(`- Precisión: ${accuracyText}`);
+      }
+      const capturedAt = formatTimestamp(locationData.timestamp);
+      if (capturedAt) {
+        locationLines.push(`- Capturada: ${capturedAt}`);
+      }
+      locationLines.push(mapLink);
+    } else if (includeLocation && locStatus === 'error') {
+      locationLines.push('Ubicación: no se pudo obtener en este momento.');
+    }
+
+    const messageLines = [
+      'Longyu Shop',
+      `Pedido express: ${totalUnits} uds · ${items.length} productos`,
+    ];
+
+    if (productLines.length) {
+      messageLines.push('');
+      messageLines.push('Productos:');
+      messageLines.push(...productLines);
+    }
+
+    if (locationLines.length) {
+      messageLines.push('');
+      messageLines.push('Detalles de ubicación:');
+      messageLines.push(...locationLines);
+    }
+
+    messageLines.push('');
+    messageLines.push('| Enviado desde Longyu Shop');
+
+    return messageLines.join('\n').trim();
   };
 
   const handleSend = () => {
@@ -171,7 +232,7 @@ const WhatsAppCartBar = ({ items, onRemove, onClear }) => {
 
               <div className="flex items-center justify-between gap-3 pt-1">
                 <p className="text-[11px] leading-snug text-white/50">
-                  Total: {totalUnits} unidades. {includeLocation && locStatus === 'success' && locationData && `Precisión: ±${locationData.accuracy}m`} {includeLocation && locStatus === 'requesting' && 'Obteniendo ubicación…'}
+                  Total: {totalUnits} unidades. {locationAccuracyDisplay && `Precisión: ${locationAccuracyDisplay}`} {includeLocation && locStatus === 'requesting' && 'Obteniendo ubicación…'}
                 </p>
                 <motion.button
                   whileHover={{ scale: 1.04 }}
