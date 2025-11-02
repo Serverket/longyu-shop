@@ -351,7 +351,7 @@ const ClientesSection = () => {
   }, []); // preload once
 
   return (
-  <section className="relative overflow-hidden px-4 py-14 md:py-16 lg:py-20" id="clientes">
+  <section className="overflow-hidden relative px-4 py-14 md:py-16 lg:py-20" id="clientes">
       {/* Background decoration */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-purple-900/10 to-black/90" />
       
@@ -386,7 +386,7 @@ const ClientesSection = () => {
         💖
       </motion.div>
 
-  <div className="relative z-10 w-full max-w-7xl mx-auto space-y-10 md:space-y-12 lg:space-y-16">
+  <div className="relative z-10 mx-auto space-y-10 w-full max-w-7xl md:space-y-12 lg:space-y-16">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -438,18 +438,18 @@ const ClientesSection = () => {
               className="grid gap-8 md:grid-cols-2 md:gap-10 lg:items-center min-h-[520px] md:min-h-[560px] lg:min-h-[600px]"
             >
               {/* Image Side */}
-              <div className="relative group flex items-center justify-center">
+              <div className="flex relative justify-center items-center group">
                 <div className="absolute inset-0 bg-gradient-to-r from-pink-500 to-purple-600 rounded-3xl opacity-30 blur-2xl transition-opacity duration-300 group-hover:opacity-50" />
                 <motion.div
                   whileHover={{ scale: 1.02 }}
-                  className="relative overflow-hidden border-2 rounded-3xl aspect-square w-full max-w-sm mx-auto md:border-4 border-white/10"
+                  className="overflow-hidden relative mx-auto w-full max-w-sm rounded-3xl border-2 aspect-square md:border-4 border-white/10"
                 >
                   {!loaded[currentTestimonial] && (
-                    <div className="absolute inset-0 animate-pulse flex flex-col">
+                    <div className="flex absolute inset-0 flex-col animate-pulse">
                       <div className="flex-1 bg-gradient-to-br from-white/10 via-white/5 to-white/10" />
-                      <div className="p-4 space-y-2 bg-black/40 backdrop-blur">
-                        <div className="h-4 w-2/3 rounded bg-white/20" />
-                        <div className="h-3 w-1/2 rounded bg-white/10" />
+                      <div className="p-4 space-y-2 backdrop-blur bg-black/40">
+                        <div className="w-2/3 h-4 rounded bg-white/20" />
+                        <div className="w-1/2 h-3 rounded bg-white/10" />
                       </div>
                     </div>
                   )}
@@ -469,16 +469,16 @@ const ClientesSection = () => {
                     transition={{ duration: 0.55, ease: "easeOut" }}
                     className="object-cover w-full h-full"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t via-transparent to-transparent from-black/60" />
                   {loaded[currentTestimonial] && (
                     <motion.div
-                      className="absolute left-0 right-0 bottom-0 p-4 md:p-6"
+                      className="absolute right-0 bottom-0 left-0 p-4 md:p-6"
                       initial={{ y: 20, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ delay: 0.25 }}
                     >
-                      <div className="flex items-center gap-3">
-                        <div className="flex items-center justify-center w-10 h-10 bg-white/20 rounded-full backdrop-blur-md md:w-12 md:h-12">
+                      <div className="flex gap-3 items-center">
+                        <div className="flex justify-center items-center w-10 h-10 rounded-full backdrop-blur-md bg-white/20 md:w-12 md:h-12">
                           <Quote className="w-5 h-5 text-white md:w-6 md:h-6" />
                         </div>
                         <div>
@@ -518,16 +518,16 @@ const ClientesSection = () => {
                     transition={{ delay: 0.4 }}
                     className="relative"
                   >
-                    <Quote className="absolute w-6 h-6 text-purple-500/20 -top-2 -left-2 md:w-8 md:h-8 md:-top-4 md:-left-4" />
+                    <Quote className="absolute -top-2 -left-2 w-6 h-6 text-purple-500/20 md:w-8 md:h-8 md:-top-4 md:-left-4" />
                     <p className="pl-6 text-base font-light leading-relaxed text-white md:text-xl lg:text-2xl md:pl-8">
                       "{activeTestimonial.comment}"
                     </p>
                   </motion.blockquote>
                 ) : (
                   <div className="space-y-3">
-                    <div className="h-6 w-11/12 rounded bg-white/10 animate-pulse" />
-                    <div className="h-6 w-10/12 rounded bg-white/10 animate-pulse" />
-                    <div className="h-6 w-9/12 rounded bg-white/10 animate-pulse" />
+                    <div className="w-11/12 h-6 rounded animate-pulse bg-white/10" />
+                    <div className="w-10/12 h-6 rounded animate-pulse bg-white/10" />
+                    <div className="w-9/12 h-6 rounded animate-pulse bg-white/10" />
                   </div>
                 )}
 
@@ -536,10 +536,10 @@ const ClientesSection = () => {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5 }}
-                    className="p-3 border rounded-xl bg-gradient-to-r from-purple-500/10 to-pink-500/10 backdrop-blur-sm md:rounded-2xl md:p-4 border-white/10"
+                    className="p-3 bg-gradient-to-r rounded-xl border backdrop-blur-sm from-purple-500/10 to-pink-500/10 md:rounded-2xl md:p-4 border-white/10"
                   >
-                    <div className="flex items-center gap-3">
-                      <div className="p-2 bg-white/10 rounded-full">
+                    <div className="flex gap-3 items-center">
+                      <div className="p-2 rounded-full bg-white/10">
                         <Heart className="w-4 h-4 text-pink-400 md:w-5 md:h-5" />
                       </div>
                       <div>
@@ -549,7 +549,7 @@ const ClientesSection = () => {
                     </div>
                   </motion.div>
                 ) : (
-                  <div className="h-20 rounded-xl bg-white/10 animate-pulse" />
+                  <div className="h-20 rounded-xl animate-pulse bg-white/10" />
                 )}
 
                 {loaded[currentTestimonial] ? (
@@ -562,24 +562,24 @@ const ClientesSection = () => {
                     {activeTestimonial.date}
                   </motion.p>
                 ) : (
-                  <div className="h-4 w-20 rounded bg-white/10 animate-pulse" />
+                  <div className="w-20 h-4 rounded animate-pulse bg-white/10" />
                 )}
               </div>
             </motion.div>
           </AnimatePresence>
           {/* Navigation repositioned for consistent responsive layout */}
           <div className="mt-6 lg:mt-8">
-            <div className="relative flex items-center justify-center">
+            <div className="flex relative justify-center items-center">
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={prevTestimonial}
-                className="absolute left-0 md:left-4 flex items-center justify-center w-10 h-10 transition-colors rounded-full border bg-white/10 border-white/20 backdrop-blur-md md:w-12 md:h-12 hover:bg-white/20"
+                className="flex absolute left-0 justify-center items-center w-10 h-10 rounded-full border backdrop-blur-md transition-colors md:left-4 bg-white/10 border-white/20 md:w-12 md:h-12 hover:bg-white/20"
                 aria-label="Anterior testimonio"
               >
                 <ChevronLeft className="w-4 h-4 text-white md:w-5 md:h-5" />
               </motion.button>
-              <div className="flex items-center gap-2 px-14 md:px-24">
+              <div className="flex gap-2 items-center px-14 md:px-24">
                 {testimonials.map((_, index) => (
                   <motion.button
                     key={index}
@@ -597,7 +597,7 @@ const ClientesSection = () => {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={nextTestimonial}
-                className="absolute right-0 md:right-4 flex items-center justify-center w-10 h-10 transition-colors rounded-full border bg-white/10 border-white/20 backdrop-blur-md md:w-12 md:h-12 hover:bg-white/20"
+                className="flex absolute right-0 justify-center items-center w-10 h-10 rounded-full border backdrop-blur-md transition-colors md:right-4 bg-white/10 border-white/20 md:w-12 md:h-12 hover:bg-white/20"
                 aria-label="Siguiente testimonio"
               >
                 <ChevronRight className="w-4 h-4 text-white md:w-5 md:h-5" />
@@ -616,7 +616,7 @@ const ClientesSection = () => {
           {[
             { icon: "🚚", label: "Envío Rápido", value: "24-48h" },
             { icon: "✨", label: "Productos", value: "100% Auténticos" },
-            { icon: "🎉", label: "Clientes Felices", value: "+10,000" },
+            { icon: "🎉", label: "Clientes Felices", value: "+200" },
             { icon: "⭐", label: "Calificación", value: "4.9/5.0" }
           ].map((badge, index) => (
             <motion.div
