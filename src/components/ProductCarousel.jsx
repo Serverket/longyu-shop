@@ -1,6 +1,6 @@
 import React, { useMemo, useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ArrowRight, ShoppingCart } from 'lucide-react';
 import starsPattern from '../assets/images/stars.png';
 import WhatsAppCartBar from './WhatsAppCartBar';
 
@@ -153,13 +153,13 @@ const ProductCarousel = () => {
 
   return (
     <section className="relative z-20" id="products">
-      <div className="mx-auto w-full max-w-7xl px-4">
+      <div className="px-4 mx-auto w-full max-w-7xl">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4"
+          className="mb-4 text-3xl font-black text-center text-white sm:text-4xl md:text-5xl lg:text-6xl"
         >
-          <span className="bg-gradient-to-r from-yellow-400 via-orange-500 to-pink-500 bg-clip-text text-transparent">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-orange-500 to-pink-500">
             Catálogo estrella
           </span>
         </motion.h2>
@@ -167,12 +167,26 @@ const ProductCarousel = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="text-center text-white/70 max-w-xl mx-auto mb-10"
+          className="mx-auto mb-6 max-w-2xl text-center text-white/70"
         >
-          Selecciona una categoría y deja que los favoritos desfilen automáticamente.
+          Explora una categoría, toca tus antojos y arma tu carrito en segundos.
         </motion.p>
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.18 }}
+          className="flex gap-3 items-center px-5 py-3 mx-auto mb-10 w-full max-w-xl text-sm rounded-2xl border backdrop-blur border-white/10 bg-white/5 text-white/80"
+        >
+          <div className="flex justify-center items-center w-10 h-10 text-white bg-gradient-to-r rounded-full from-pink-500/60 to-purple-600/60">
+            <ShoppingCart className="w-5 h-5" />
+          </div>
+          <div className="leading-snug">
+            <p className="font-semibold text-white">Haz clic en cualquier tarjeta</p>
+            <p className="text-white/70">Se agregará a tu pedido; puedes ajustar cantidades desde el mismo carrusel.</p>
+          </div>
+        </motion.div>
 
-        <div className="flex flex-wrap justify-center gap-3 md:gap-4 mb-10">
+        <div className="flex flex-wrap gap-3 justify-center mb-10 md:gap-4">
           {categories.map((category, index) => {
             const isActive = index === activeIndex;
             return (
@@ -209,46 +223,46 @@ const ProductCarousel = () => {
             transition={{ duration: 0.3 }}
             className="relative"
           >
-            <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-2xl px-4 sm:px-6 py-6 sm:py-8">
+            <div className="overflow-hidden relative px-4 py-6 rounded-3xl border backdrop-blur-2xl border-white/10 bg-white/5 sm:px-6 sm:py-8">
               <motion.div
-                className="absolute -left-24 top-10 h-56 w-56 rounded-full bg-pink-500/10 blur-3xl"
+                className="absolute top-10 -left-24 w-56 h-56 rounded-full blur-3xl bg-pink-500/10"
                 animate={{ scale: [0.9, 1.1, 0.9], opacity: [0.2, 0.35, 0.2] }}
                 transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
               />
               <motion.div
-                className="absolute -right-36 bottom-10 h-64 w-64 rounded-full bg-yellow-400/10 blur-3xl"
+                className="absolute bottom-10 -right-36 w-64 h-64 rounded-full blur-3xl bg-yellow-400/10"
                 animate={{ scale: [0.8, 1, 0.8], opacity: [0.18, 0.3, 0.18] }}
                 transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
               />
 
-              <div className="relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-6">
-                <div className="flex items-center gap-3">
+              <div className="flex relative z-10 flex-col gap-6 mb-6 lg:flex-row lg:items-center lg:justify-between">
+                <div className="flex gap-3 items-center">
                   <span className="text-3xl">{activeCategory.icon}</span>
                   <div>
-                    <h3 className="text-2xl sm:text-3xl font-black text-white">{activeCategory.title}</h3>
-                    <p className="text-xs uppercase tracking-[0.35em] text-white/50">
-                      favoritos longyu
+                    <h3 className="text-2xl font-black text-white sm:text-3xl">{activeCategory.title}</h3>
+                    <p className="text-xs uppercase tracking-[0.35em] text-white/70">
+                      toca y suma al carrito
                     </p>
                   </div>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-3 self-start lg:self-auto justify-end">
+                <div className="flex flex-wrap gap-3 justify-end items-center self-start lg:self-auto">
                   <button
                     type="button"
                     onClick={() => scrollByCard('prev')}
-                    className="group flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition-all hover:border-white/40 hover:bg-white/20"
+                    className="flex justify-center items-center w-11 h-11 text-white rounded-full border transition-all group border-white/20 bg-white/10 hover:border-white/40 hover:bg-white/20"
                     aria-label="Anterior"
                   >
-                    <ChevronLeft className="h-5 w-5" />
+                    <ChevronLeft className="w-5 h-5" />
                   </button>
 
                   <button
                     type="button"
                     onClick={() => scrollByCard('next')}
-                    className="group flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition-all hover:border-white/40 hover:bg-white/20"
+                    className="flex justify-center items-center w-11 h-11 text-white rounded-full border transition-all group border-white/20 bg-white/10 hover:border-white/40 hover:bg-white/20"
                     aria-label="Siguiente"
                   >
-                    <ChevronRight className="h-5 w-5" />
+                    <ChevronRight className="w-5 h-5" />
                   </button>
 
                   <motion.a
@@ -260,7 +274,7 @@ const ProductCarousel = () => {
                     className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-pink-500 via-orange-500 to-purple-600 px-5 py-2.5 text-xs sm:text-sm font-semibold text-white shadow-lg shadow-pink-500/30"
                   >
                     Ver catálogo
-                    <ArrowRight className="h-4 w-4" />
+                    <ArrowRight className="w-4 h-4" />
                   </motion.a>
                 </div>
               </div>
@@ -268,7 +282,7 @@ const ProductCarousel = () => {
               <div
                 ref={sliderRef}
                 onScroll={handleScroll}
-                className="relative z-10 flex gap-4 overflow-x-auto pb-4 pr-6 snap-x snap-mandatory"
+                className="flex overflow-x-auto relative z-10 gap-4 pr-6 pb-4 snap-x snap-mandatory"
                 style={{ scrollbarWidth: 'none' }}
               >
                 {activeCategory.items.map((item) => {
@@ -282,7 +296,7 @@ const ProductCarousel = () => {
                     onClick={() => toggleSelect(item)}
                     className={`relative flex min-w-[220px] sm:min-w-[260px] flex-col justify-between overflow-hidden rounded-[26px] border p-5 text-white snap-start cursor-pointer transition ${
                       isSelected
-                        ? 'border-pink-500/60 bg-gradient-to-br from-pink-500/30 via-purple-600/30 to-yellow-400/20'
+                        ? 'bg-gradient-to-br border-pink-500/60 from-pink-500/30 via-purple-600/30 to-yellow-400/20'
                         : 'border-white/10 bg-white/5'
                     }`}
                     whileHover={{ y: -6 }}
@@ -299,17 +313,17 @@ const ProductCarousel = () => {
                     <img
                       src={starsPattern}
                       alt=""
-                      className="absolute inset-0 h-full w-full object-cover opacity-20 mix-blend-screen"
+                      className="object-cover absolute inset-0 w-full h-full opacity-20 mix-blend-screen"
                       aria-hidden
                     />
 
-                    <div className="relative z-10 flex flex-col gap-4">
+                    <div className="flex relative z-10 flex-col gap-4">
                       <span className="inline-flex w-fit items-center gap-2 rounded-full bg-black/40 px-3 py-1 text-xs uppercase tracking-[0.2em] text-white/70">
                         {activeCategory.icon}
                         {activeCategory.title}
                       </span>
                       <h4 className="text-xl font-black drop-shadow-sm">{item}</h4>
-                      <div className="flex items-center gap-2">
+                      <div className="flex gap-2 items-center">
                         <span className={`text-[10px] tracking-wide uppercase ${isSelected ? 'text-pink-300' : 'text-white/40'}`}>
                           {isSelected ? 'Seleccionado' : 'Tap para agregar'}
                         </span>
@@ -323,11 +337,11 @@ const ProductCarousel = () => {
                         )}
                       </div>
                       {isSelected && (
-                        <div className="mt-2 flex items-center gap-2">
+                        <div className="flex gap-2 items-center mt-2">
                           <button
                             type="button"
                             onClick={(e) => { e.stopPropagation(); updateQty(id, -1); }}
-                            className="h-6 w-6 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-xs"
+                            className="flex justify-center items-center w-6 h-6 text-xs rounded-full bg-white/10 hover:bg-white/20"
                           >
                             -
                           </button>
@@ -335,7 +349,7 @@ const ProductCarousel = () => {
                           <button
                             type="button"
                             onClick={(e) => { e.stopPropagation(); updateQty(id, 1); }}
-                            className="h-6 w-6 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-xs"
+                            className="flex justify-center items-center w-6 h-6 text-xs rounded-full bg-white/10 hover:bg-white/20"
                           >
                             +
                           </button>
@@ -347,11 +361,11 @@ const ProductCarousel = () => {
                 })}
               </div>
 
-              <div className="mt-6 flex flex-col items-center justify-between gap-4 text-white/60 sm:flex-row">
+              <div className="flex flex-col gap-4 justify-between items-center mt-6 text-white/60 sm:flex-row">
                 <span className="text-sm uppercase tracking-[0.3em] text-white/50">
                   {activeCategory.title} • {visibleProductIndex + 1}/{activeCategory.items.length}
                 </span>
-                <div className="flex items-center gap-2">
+                <div className="flex gap-2 items-center">
                   {activeCategory.items.map((item, index) => (
                     <span
                       key={`${activeCategory.id}-dot-${item}`}
