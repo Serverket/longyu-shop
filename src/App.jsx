@@ -12,6 +12,7 @@ import './styles/tailwind.css';
 const App = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [showProducts, setShowProducts] = useState(false);
+  const [cartActive, setCartActive] = useState(false);
 
   // Obtener año actual para el footer
   const currentYear = new Date().getFullYear();
@@ -47,7 +48,7 @@ const App = () => {
       {/* Main Content */}
       <div className="relative z-10">
         {/* Modern Floating Navigation */}
-        <FloatingNav />
+        <FloatingNav cartActive={cartActive} />
 
         {/* Hero Section */}
         <section id="home">
@@ -62,7 +63,7 @@ const App = () => {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6 }}
             >
-              <ProductCarousel />
+              <ProductCarousel onCartChange={setCartActive} />
             </motion.div>
           )}
         </AnimatePresence>

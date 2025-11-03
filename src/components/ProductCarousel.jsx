@@ -42,7 +42,7 @@ const useProductCategories = () =>
 const autoScrollDelay = 4000;
 const CATALOG_URL = 'https://wa.me/c/584141471037';
 
-const ProductCarousel = () => {
+const ProductCarousel = ({ onCartChange = () => {} }) => {
   const categories = useProductCategories();
   const [activeIndex, setActiveIndex] = useState(0);
   const [visibleProductIndex, setVisibleProductIndex] = useState(0);
@@ -52,6 +52,14 @@ const ProductCarousel = () => {
 
   const activeCategory = categories[activeIndex];
   const [selected, setSelected] = useState([]); // {id, item, category, qty}
+
+  useEffect(() => {
+    onCartChange(selected.length > 0);
+  }, [selected.length, onCartChange]);
+
+  useEffect(() => () => {
+    onCartChange(false);
+  }, [onCartChange]);
 
   const toggleSelect = (item) => {
     setSelected(prev => {

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Instagram, MessageCircle, ShoppingBag, Menu, X, Home, Users, Phone } from 'lucide-react';
 
-const FloatingNav = () => {
+const FloatingNav = ({ cartActive = false }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
@@ -159,9 +159,11 @@ const FloatingNav = () => {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={() => setIsOpen(!isOpen)}
-          className={`fixed bottom-6 right-6 z-50 p-4 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 shadow-lg ${
+          className={`fixed right-6 z-50 p-4 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 shadow-lg ${
+            cartActive ? 'top-6' : 'bottom-6'
+          } ${
             isOpen ? 'rotate-90' : ''
-          } transition-transform duration-300`}
+          } transition-all duration-300`}
         >
           {isOpen ? (
             <X className="w-6 h-6 text-white" />
@@ -177,7 +179,7 @@ const FloatingNav = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
-              className="fixed bottom-24 right-6 z-40 space-y-3"
+              className={`fixed right-6 z-40 space-y-3 ${cartActive ? 'top-24' : 'bottom-24'}`}
             >
               {socialLinks.map((link, index) => (
                 <motion.a

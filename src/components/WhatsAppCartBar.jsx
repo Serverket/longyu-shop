@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, MapPin, Send, Trash2, Sparkles } from 'lucide-react';
 
@@ -13,6 +14,11 @@ const WHATSAPP_PHONE = '584141471037';
  *  - onClear: () => void
  */
 const WhatsAppCartBar = ({ items, onRemove, onClear }) => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   const [includeLocation, setIncludeLocation] = useState(() => {
     try {
       const stored = localStorage.getItem('lu-include-location');
@@ -154,7 +160,9 @@ const WhatsAppCartBar = ({ items, onRemove, onClear }) => {
     }, 1600);
   };
 
-  return (
+  if (!mounted) return null;
+
+  return createPortal(
     <AnimatePresence>
       {items.length > 0 && (
         <motion.div
@@ -162,34 +170,34 @@ const WhatsAppCartBar = ({ items, onRemove, onClear }) => {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 80, opacity: 0 }}
           transition={{ type: 'spring', stiffness: 260, damping: 24 }}
-          className="fixed left-0 right-0 bottom-0 z-40 mx-auto w-full max-w-3xl px-4 pb-4"
+          className="fixed left-0 right-0 bottom-0 z-[120] mx-auto w-full max-w-3xl px-4 pb-4"
         >
-          <div className="relative overflow-hidden rounded-2xl border border-white/15 bg-black/70 backdrop-blur-xl shadow-lg">
-            <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-pink-500/10 via-purple-600/10 to-yellow-400/10" />
-            <div className="relative flex flex-col gap-3 p-4">
-              <div className="flex items-center justify-between">
+          <div className="overflow-hidden relative rounded-2xl border shadow-lg backdrop-blur-xl border-white/15 bg-black/70">
+            <div className="absolute inset-0 bg-gradient-to-r pointer-events-none from-pink-500/10 via-purple-600/10 to-yellow-400/10" />
+            <div className="flex relative flex-col gap-3 p-4">
+              <div className="flex justify-between items-center">
                 <h5 className="text-sm font-semibold tracking-wide text-white uppercase">
                   Pedido rápido ({items.length} prod / {totalUnits} uds)
                 </h5>
-                <div className="flex items-center gap-2">
+                <div className="flex gap-2 items-center">
                   <button
                     type="button"
                     onClick={onClear}
-                    className="group flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20"
+                    className="flex justify-center items-center w-9 h-9 text-white rounded-full group bg-white/10 hover:bg-white/20"
                     title="Vaciar selección"
                   >
-                    <Trash2 className="h-4 w-4" />
+                    <Trash2 className="w-4 h-4" />
                   </button>
-                  <div className="flex items-center gap-2">
+                  <div className="flex gap-2 items-center">
                     <button
                       type="button"
                       onClick={() => setIncludeLocation(v => !v)}
                       className={`group flex h-9 px-3 items-center gap-2 rounded-full text-xs font-medium transition ${
-                        includeLocation ? 'bg-yellow-500/20 text-yellow-300 border border-yellow-400/30' : 'bg-white/10 text-white/70 border border-white/15'
+                        includeLocation ? 'text-yellow-300 border bg-yellow-500/20 border-yellow-400/30' : 'border bg-white/10 text-white/70 border-white/15'
                       }`}
                       title="Ordenar y enviar mi ubicación"
                     >
-                      <MapPin className="h-4 w-4" />
+                      <MapPin className="w-4 h-4" />
                       {includeLocation ? (
                         locStatus === 'success' ? 'Ubicación lista' : locStatus === 'requesting' ? 'Solicitando…' : 'Error'
                       ) : (
@@ -200,7 +208,7 @@ const WhatsAppCartBar = ({ items, onRemove, onClear }) => {
                       <button
                         type="button"
                         onClick={() => { setLocStatus('idle'); setLocationData(null); }}
-                        className="h-9 px-3 rounded-full bg-red-500/20 text-red-300 text-xs font-medium border border-red-400/30 hover:bg-red-500/30"
+                        className="px-3 h-9 text-xs font-medium text-red-300 rounded-full border bg-red-500/20 border-red-400/30 hover:bg-red-500/30"
                       >
                         Reintentar
                       </button>
@@ -215,7 +223,7 @@ const WhatsAppCartBar = ({ items, onRemove, onClear }) => {
                   <motion.span
                     key={p.id}
                     layout
-                    className="group relative inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs text-white"
+                    className="inline-flex relative gap-2 items-center px-3 py-1 text-xs text-white rounded-full border group border-white/15 bg-white/10"
                   >
                     <span title="Ordenar y enviar mi ubicación">{p.item} × {p.qty}</span>
                     <button
@@ -224,13 +232,13 @@ const WhatsAppCartBar = ({ items, onRemove, onClear }) => {
                       className="flex h-4 w-4 items-center justify-center rounded-full bg-white/20 text-[10px] hover:bg-white/40"
                       title="Quitar"
                     >
-                      <X className="h-3 w-3" />
+                      <X className="w-3 h-3" />
                     </button>
                   </motion.span>
                 ))}
               </div>
 
-              <div className="flex items-center justify-between gap-3 pt-1">
+              <div className="flex gap-3 justify-between items-center pt-1">
                 <p className="text-[11px] leading-snug text-white/50">
                   Total: {totalUnits} unidades. {locationAccuracyDisplay && `Precisión: ${locationAccuracyDisplay}`} {includeLocation && locStatus === 'requesting' && 'Obteniendo ubicación…'}
                 </p>
@@ -239,10 +247,10 @@ const WhatsAppCartBar = ({ items, onRemove, onClear }) => {
                   whileTap={{ scale: 0.94 }}
                   disabled={sending || !items.length}
                   onClick={handleSend}
-                  className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-pink-500 via-orange-500 to-purple-600 px-4 py-2 text-xs font-semibold text-white shadow disabled:opacity-50"
+                  className="inline-flex gap-2 items-center px-4 py-2 text-xs font-semibold text-white bg-gradient-to-r from-pink-500 via-orange-500 to-purple-600 rounded-full shadow disabled:opacity-50"
                   title="Enviar pedido por WhatsApp"
                 >
-                  {showConfetti ? <Sparkles className="h-4 w-4" /> : <Send className="h-4 w-4" />}
+                  {showConfetti ? <Sparkles className="w-4 h-4" /> : <Send className="w-4 h-4" />}
                   {sending ? 'Enviando…' : showConfetti ? '¡Listo!' : 'Enviar'}
                 </motion.button>
               </div>
@@ -254,7 +262,7 @@ const WhatsAppCartBar = ({ items, onRemove, onClear }) => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="pointer-events-none absolute inset-0 overflow-hidden"
+                  className="overflow-hidden absolute inset-0 pointer-events-none"
                 >
                   {[...Array(18)].map((_, i) => (
                     <motion.span
@@ -262,7 +270,7 @@ const WhatsAppCartBar = ({ items, onRemove, onClear }) => {
                       initial={{ y: -10, opacity: 0 }}
                       animate={{ y: [0, 120, 180], opacity: [1, 1, 0] }}
                       transition={{ duration: 1.4, delay: i * 0.02 }}
-                      className="absolute h-2 w-2 rounded-full"
+                      className="absolute w-2 h-2 rounded-full"
                       style={{
                         left: `${Math.random() * 100}%`,
                         top: `${Math.random() * 40}%`,
@@ -277,7 +285,8 @@ const WhatsAppCartBar = ({ items, onRemove, onClear }) => {
           </div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 };
 
