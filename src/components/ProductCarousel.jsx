@@ -39,7 +39,6 @@ const useProductCategories = () =>
     []
   );
 
-const autoScrollDelay = 4000;
 const CATALOG_URL = 'https://wa.me/c/584141471037';
 
 const ProductCarousel = ({ onCartChange = () => {} }) => {
@@ -122,14 +121,6 @@ const ProductCarousel = ({ onCartChange = () => {} }) => {
     setVisibleProductIndex(0);
     measureLayout();
   }, [activeIndex, measureLayout]);
-
-  useEffect(() => {
-    const length = activeCategory.items.length;
-    const interval = setInterval(() => {
-      setVisibleProductIndex((prev) => (prev + 1) % length);
-    }, autoScrollDelay);
-    return () => clearInterval(interval);
-  }, [activeCategory.items.length]);
 
   useEffect(() => {
     const container = sliderRef.current;
@@ -332,8 +323,8 @@ const ProductCarousel = ({ onCartChange = () => {} }) => {
                       </span>
                       <h4 className="text-xl font-black drop-shadow-sm">{item}</h4>
                       <div className="flex gap-2 items-center">
-                        <span className={`text-[10px] tracking-wide uppercase ${isSelected ? 'text-pink-300' : 'text-white/40'}`}>
-                          {isSelected ? 'Seleccionado' : 'Tap para agregar'}
+                        <span className={`text-xs sm:text-sm tracking-wide uppercase ${isSelected ? 'text-pink-200' : 'text-white/60'}`}>
+                          {isSelected ? 'Seleccionado' : 'Toca para agregar'}
                         </span>
                         {isSelected && (
                           <motion.span
@@ -345,22 +336,32 @@ const ProductCarousel = ({ onCartChange = () => {} }) => {
                         )}
                       </div>
                       {isSelected && (
-                        <div className="flex gap-2 items-center mt-2">
-                          <button
-                            type="button"
-                            onClick={(e) => { e.stopPropagation(); updateQty(id, -1); }}
-                            className="flex justify-center items-center w-6 h-6 text-xs rounded-full bg-white/10 hover:bg-white/20"
-                          >
-                            -
-                          </button>
-                          <span className="text-xs font-semibold">{selectedObj.qty}</span>
-                          <button
-                            type="button"
-                            onClick={(e) => { e.stopPropagation(); updateQty(id, 1); }}
-                            className="flex justify-center items-center w-6 h-6 text-xs rounded-full bg-white/10 hover:bg-white/20"
-                          >
-                            +
-                          </button>
+                        <div className="flex flex-col items-center gap-3 mt-4 text-center">
+                          <span className="text-xs font-semibold tracking-[0.3em] text-white/70 uppercase">
+                            Cantidad
+                          </span>
+                          <div className="flex items-center gap-4 px-4 py-3 rounded-full border border-white/15 bg-black/50 backdrop-blur-sm shadow-lg shadow-black/20 w-full max-w-[220px]">
+                            <button
+                              type="button"
+                              aria-label="Disminuir cantidad"
+                              onClick={(e) => { e.stopPropagation(); updateQty(id, -1); }}
+                              className="flex items-center justify-center w-12 h-12 text-2xl font-bold text-white rounded-full bg-white/15 hover:bg-white/25 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white/70 focus-visible:ring-offset-transparent disabled:opacity-40"
+                              disabled={selectedObj.qty <= 1}
+                            >
+                              −
+                            </button>
+                            <span className="text-2xl font-black text-white text-center min-w-[3rem]">
+                              {selectedObj.qty}
+                            </span>
+                            <button
+                              type="button"
+                              aria-label="Aumentar cantidad"
+                              onClick={(e) => { e.stopPropagation(); updateQty(id, 1); }}
+                              className="flex items-center justify-center w-12 h-12 text-2xl font-bold text-white rounded-full bg-white/15 hover:bg-white/25 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white/70 focus-visible:ring-offset-transparent"
+                            >
+                              +
+                            </button>
+                          </div>
                         </div>
                       )}
                     </div>
