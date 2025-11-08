@@ -102,7 +102,8 @@ const WhatsAppCartBar = ({ items, onRemove, onClear }) => {
       productLines.push(`- ${category}`);
       products.forEach((product) => {
         const qty = product.qty || 1;
-        productLines.push(`    • ${product.item} ×${qty}`);
+        const label = product.highlight ? `${product.item} (${product.highlight})` : product.item;
+        productLines.push(`    • ${label} ×${qty}`);
       });
     });
 
@@ -219,13 +220,15 @@ const WhatsAppCartBar = ({ items, onRemove, onClear }) => {
 
               {/* Selected items list */}
               <div className="flex flex-wrap gap-2">
-                {items.map(p => (
+                {items.map(p => {
+                  const label = p.highlight ? `${p.item} (${p.highlight})` : p.item;
+                  return (
                   <motion.span
                     key={p.id}
                     layout
                     className="inline-flex relative gap-2 items-center px-3 py-1 text-xs text-white rounded-full border group border-white/15 bg-white/10"
                   >
-                    <span title="Ordenar y enviar mi ubicación">{p.item} × {p.qty}</span>
+                    <span title="Eliminar de la selección">{label} × {p.qty}</span>
                     <button
                       type="button"
                       onClick={() => onRemove(p.id)}
@@ -235,7 +238,8 @@ const WhatsAppCartBar = ({ items, onRemove, onClear }) => {
                       <X className="w-3 h-3" />
                     </button>
                   </motion.span>
-                ))}
+                  );
+                })}
               </div>
 
               <div className="flex gap-3 justify-between items-center pt-1">

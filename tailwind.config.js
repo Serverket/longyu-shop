@@ -9,10 +9,11 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        pp: ['Press Start 2P'],
-        tektur: ['"Tektur"'],
-        mont: ['"Montserrat"'],
-        inter: ['Inter', 'sans-serif'],
+        sans: ['Inter', 'Noto Sans SC', 'Noto Sans TC', 'Noto Sans JP', 'Noto Sans KR', 'PingFang SC', 'Hiragino Sans', 'Heiti SC', 'Microsoft YaHei', 'sans-serif'],
+        pp: ['Press Start 2P', 'Noto Sans SC', 'Noto Sans TC', 'Noto Sans JP', 'Noto Sans KR', 'PingFang SC', 'Hiragino Sans', 'Heiti SC', 'Microsoft YaHei', 'sans-serif'],
+        tektur: ['Tektur', 'Noto Sans SC', 'Noto Sans TC', 'Noto Sans JP', 'Noto Sans KR', 'PingFang SC', 'Hiragino Sans', 'Heiti SC', 'Microsoft YaHei', 'sans-serif'],
+        mont: ['Montserrat', 'Noto Sans SC', 'Noto Sans TC', 'Noto Sans JP', 'Noto Sans KR', 'PingFang SC', 'Hiragino Sans', 'Heiti SC', 'Microsoft YaHei', 'sans-serif'],
+        inter: ['Inter', 'Noto Sans SC', 'Noto Sans TC', 'Noto Sans JP', 'Noto Sans KR', 'PingFang SC', 'Hiragino Sans', 'Heiti SC', 'Microsoft YaHei', 'sans-serif'],
       },
       colors: {
         'primary': {
